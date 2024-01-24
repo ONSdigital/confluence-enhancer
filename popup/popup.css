@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.centered-box {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 2em;
+    box-shadow: 0 0 1em #aaa;
+    width: auto; /* Adjust width as needed */
+}
+
+.toggle-wrapper {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#toggleAndLabelContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; /* Changed from baseline to center */
+    width: 100%;
+    padding: 1em;
+}
+
+.labelContainer {
+  font-size: 2em;
+  margin-right: .4em;
+}
+

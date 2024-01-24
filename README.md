@@ -14,7 +14,14 @@ The plugin can be toggled on or off by clicking on the plugin icon and toggling 
 # Installation
 In order to install this plugin you must:
 * Have a chromium based browser (Like Google Chrome, Microsoft Edge, Opera, Brave, Vivaldi, Blisk, Epic Privacy Browser, Colibri, Slimjet, SRWare Iron)
-* Have that browser in "developer mode" (instructions here)
+* Have that browser in "developer mode" 
+
+1. Go to `chrome://extensions/`
+2. Enable Developer mode (top right)
+3. Load Unpacked (top left)
+4. Oh, you should have cloned/downloaded this first. If you haven't done that, do that.
+5. Unzip this project if you downloaded it
+6. Select the directory of this project
 
 # Setup
 Once you have a confluence page, go to "Edit", then "Insert more content", "other macros" then select the "collapsable" component.

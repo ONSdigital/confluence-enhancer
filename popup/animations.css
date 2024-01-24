@@ -1,0 +1,46 @@
+/* Toggle Switch CSS */
+
+.toggle-wrapper {
+    position: relative;
+    width: 3.75em; /* Adjusted width */
+    height: 2.125em; /* Adjusted height */
+}
+
+.toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 2.125em;
+}
+
+.toggle-label:before {
+    position: absolute;
+    content: "";
+    height: 2em; /* Adjusted slider diameter */
+    width: 2em;
+    left: 0.125em;
+    bottom: 0.125em;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.toggle-input:checked + .toggle-label {
+    background-color: #2196F3;
+}
+
+.toggle-input:checked + .toggle-label:before {
+    transform: translateX(1.625em); /* Adjusted translation distance */
+}
+
