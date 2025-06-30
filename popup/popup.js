@@ -1,35 +1,50 @@
-document.addEventListener('DOMContentLoaded', function() {
+function getCheckboxAndLabel() {
     const checkBox = document.querySelector('.toggle-input');
     const checkBoxLabel = document.querySelector('#enabledLabel');
+    return { checkBox, checkBoxLabel };
+}
 
-    // Set the toggle to whatever the enabledStatus is
-    chrome.storage.local.get({'enabledStatus': false}, function(result) {
-      checkBox.checked = result.enabledStatus;
-      if (result.enabledStatus === false) {
-        checkBoxLabel.textContent = 'Disabled';
-      }
-    });
+function setCheckboxAndLabelToEnabled() {
+    const { checkBox, checkBoxLabel } = getCheckboxAndLabel();
+    checkBox.checked = true;
+    checkBoxLabel.textContent = 'Enabled';
+    // Store the enabled status in local storage
+    localStorage.setItem('enabledStatus', 'true');
+};
 
-    function saveEnabledStatus() {
-        const enabledStatus = checkBox.checked; // Assuming 'checkBox' is the checkbox element
+function setCheckboxAndLabelToDisabled() {
+    const { checkBox, checkBoxLabel } = getCheckboxAndLabel();
+    checkBox.checked = false;
+    checkBoxLabel.textContent = 'Disabled';
+    // Store the enabled status in local storage
+    localStorage.setItem('enabledStatus', 'false');
+};
 
-        // Store the enabled status in chrome storage
-        chrome.storage.local.set({'enabledStatus': enabledStatus}, function() {
-            console.log('Enabled status saved:', enabledStatus);
-        });
+function setCurrentCheckboxStatusFromStorage() {
+    const checkBoxStoredStatus = localStorage.getItem('enabledStatus');
+    if (checkBoxStoredStatus === 'true') {
+        setCheckboxAndLabelToEnabled();
     }
+};
 
-    // Handle Toggle for App Functionality
-    checkBox.addEventListener('change', function () {
+function setupEventListenersForCheckboxButton() {
+    const { checkBox, checkBoxLabel } = getCheckboxAndLabel();
+    checkBox.addEventListener('click', function () {
         if (checkBox.checked) {
-            saveEnabledStatus();
-            checkBoxLabel.textContent = 'Enabled';
+            setCheckboxAndLabelToEnabled();
         } else {
-            saveEnabledStatus();
-            checkBoxLabel.textContent = 'Disabled';
+            setCheckboxAndLabelToDisabled();
         }
     });
+};
 
-    // Add click event listener to the button
-    enterButton.addEventListener('click', saveAccountNumber);
-});
+function init() {
+    // Load the checkbox status from local storage, if unavailable default to disabled
+    setCurrentCheckboxStatusFromStorage();
+
+    // Setup event listeners for checkbox button
+    setupEventListenersForCheckboxButton();
+};
+
+
+document.addEventListener('DOMContentLoaded', init);
