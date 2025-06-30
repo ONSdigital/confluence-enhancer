@@ -25,6 +25,9 @@ function setCurrentCheckboxStatusFromStorage() {
     if (checkBoxStoredStatus === 'true') {
         setCheckboxAndLabelToEnabled();
     }
+    else {
+        setCheckboxAndLabelToDisabled();
+    }
 };
 
 function setupEventListenersForCheckboxButton() {
