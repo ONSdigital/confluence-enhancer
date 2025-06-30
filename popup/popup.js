@@ -8,16 +8,16 @@ function setCheckboxAndLabelToEnabled() {
     const { checkBox, checkBoxLabel } = getCheckboxAndLabel();
     checkBox.checked = true;
     checkBoxLabel.textContent = 'Enabled';
-    // Store the enabled status in local storage
-    localStorage.setItem('enabledStatus', 'true');
+    // Store in chrome.storage
+    chrome.storage.local.set({ confluenceEnhancerEnabledStatus: 'true' });
 };
 
 function setCheckboxAndLabelToDisabled() {
     const { checkBox, checkBoxLabel } = getCheckboxAndLabel();
     checkBox.checked = false;
     checkBoxLabel.textContent = 'Disabled';
-    // Store the enabled status in local storage
-    localStorage.setItem('enabledStatus', 'false');
+    // Store in chrome.storage
+    chrome.storage.local.set({ confluenceEnhancerEnabledStatus: 'false' });
 };
 
 function setCurrentCheckboxStatusFromStorage() {
