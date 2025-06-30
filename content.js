@@ -11,7 +11,7 @@ function doesUrlMatch() {
 }
 
 
-function innit() {
+function init() {
     // Load the checkbox status from local storage, if unavailable default to disabled
     const checkBoxStoredStatus = localStorage.getItem('enabledStatus');
 
@@ -30,4 +30,4 @@ function innit() {
     // Code to execute on the page itself goes here
 };
 
-innit();
+init();
