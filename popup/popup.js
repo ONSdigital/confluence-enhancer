@@ -8,26 +8,34 @@ function setCheckboxAndLabelToEnabled() {
     const { checkBox, checkBoxLabel } = getCheckboxAndLabel();
     checkBox.checked = true;
     checkBoxLabel.textContent = 'Enabled';
+
     // Store in chrome.storage
-    chrome.storage.local.set({ confluenceEnhancerEnabledStatus: 'true' });
+    chrome.storage.local.set({'confluenceEnhancerEnabledStatus': 'true'}, function() {
+        console.log('confluenceEnhancerEnabledStatus set to:', 'true');
+    });
 };
 
 function setCheckboxAndLabelToDisabled() {
     const { checkBox, checkBoxLabel } = getCheckboxAndLabel();
     checkBox.checked = false;
     checkBoxLabel.textContent = 'Disabled';
+
     // Store in chrome.storage
-    chrome.storage.local.set({ confluenceEnhancerEnabledStatus: 'false' });
+    chrome.storage.local.set({'confluenceEnhancerEnabledStatus': 'false'}, function() {
+        console.log('confluenceEnhancerEnabledStatus set to:', 'false');
+    });
 };
 
 function setCurrentCheckboxStatusFromStorage() {
-    const checkBoxStoredStatus = localStorage.getItem('enabledStatus');
-    if (checkBoxStoredStatus === 'true') {
-        setCheckboxAndLabelToEnabled();
-    }
-    else {
-        setCheckboxAndLabelToDisabled();
-    }
+    // Get the status of the checkbox from chrome.storage, assume flase if not set
+    chrome.storage.local.get({'confluenceEnhancerEnabledStatus': false}, function(localStorageData) {
+        const currentlyEnabled = localStorageData.confluenceEnhancerEnabledStatus; // 'true' or 'false'
+        if (currentlyEnabled === 'true') {
+            setCheckboxAndLabelToEnabled();
+        }  else {
+            setCheckboxAndLabelToDisabled();
+        }
+    });
 };
 
 function setupEventListenersForCheckboxButton() {

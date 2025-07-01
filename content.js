@@ -9,15 +9,31 @@ function doesUrlMatch() {
     );
 }
 
+function getEnabledStatus() {
+    chrome.storage.local.get(['confluenceEnhancerEnabledStatus'], function(data) {
+        console.log('Confluence Enhancer: Enabled status retrieved from storage:', data);
+        return data.confluenceEnhancerEnabledStatus; // 'true' or 'false'
+    });
+}
 
 function init() {
     console.log('Confluence Enhancer: Initializing content script.');
+
+    // Get enabled status from chrome.storage
+    const enabledStatus = getEnabledStatus();
+    if (enabledStatus === 'false') {
+        console.log('Confluence Enhancer: Content script is in the disabled status.');
+        return; // Exit if the enhancer is not enabled
+    }
 
     // Code to execute on the page itself goes here
     runReplacementScript();
     console.log('End of Confluence Enhancer content script execution.');
 };
 
+
+
+// START of replacement script
 const variables = {
   epoch_number: '116-Success!',
 };
@@ -79,7 +95,7 @@ function runReplacementScript() {
   });
 
 };
-
+// END of replacement script
 
 
 init();
