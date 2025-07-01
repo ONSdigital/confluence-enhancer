@@ -9,22 +9,18 @@ function doesUrlMatch() {
     );
 }
 
-function getEnabledStatus() {
-    chrome.storage.local.get(['confluenceEnhancerEnabledStatus'], function(data) {
-        console.log('Confluence Enhancer: Enabled status retrieved from storage:', data);
-        return data.confluenceEnhancerEnabledStatus; // 'true' or 'false'
-    });
-}
-
 function init() {
     console.log('Confluence Enhancer: Initializing content script.');
 
-    // Get enabled status from chrome.storage
-    const enabledStatus = getEnabledStatus();
-    if (enabledStatus === 'false') {
-        console.log('Confluence Enhancer: Content script is in the disabled status.');
-        return; // Exit if the enhancer is not enabled
-    }
+    chrome.storage.local.get({ confluenceEnhancerEnabled: 'false' }, function(data) {
+        const enabledStatus = data.confluenceEnhancerEnabledStatus; // 'true' or 'false'
+        console.log('ENABLED STATUS IS:', enabledStatus);
+        console.log('TYPE OF STATUS IS:', typeof enabledStatus);
+        if (enabledStatus === 'false') {
+            console.log('Confluence Enhancer: Content script is in the disabled status.');
+            return; // Exit if the enhancer is not enabled
+        }
+    });
 
     // Code to execute on the page itself goes here
     runReplacementScript();

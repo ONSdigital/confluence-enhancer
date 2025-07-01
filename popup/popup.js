@@ -1,11 +1,11 @@
-function getCheckboxAndLabel() {
+function getCheckboxAndLabelElements() {
     const checkBox = document.querySelector('.toggle-input');
     const checkBoxLabel = document.querySelector('#enabledLabel');
     return { checkBox, checkBoxLabel };
 }
 
 function setCheckboxAndLabelToEnabled() {
-    const { checkBox, checkBoxLabel } = getCheckboxAndLabel();
+    const { checkBox, checkBoxLabel } = getCheckboxAndLabelElements();
     checkBox.checked = true;
     checkBoxLabel.textContent = 'Enabled';
 
@@ -16,7 +16,7 @@ function setCheckboxAndLabelToEnabled() {
 };
 
 function setCheckboxAndLabelToDisabled() {
-    const { checkBox, checkBoxLabel } = getCheckboxAndLabel();
+    const { checkBox, checkBoxLabel } = getCheckboxAndLabelElements();
     checkBox.checked = false;
     checkBoxLabel.textContent = 'Disabled';
 
@@ -28,7 +28,7 @@ function setCheckboxAndLabelToDisabled() {
 
 function setCurrentCheckboxStatusFromStorage() {
     // Get the status of the checkbox from chrome.storage, assume flase if not set
-    chrome.storage.local.get({'confluenceEnhancerEnabledStatus': false}, function(localStorageData) {
+    chrome.storage.local.get({'confluenceEnhancerEnabledStatus': 'false'}, function(localStorageData) {
         const currentlyEnabled = localStorageData.confluenceEnhancerEnabledStatus; // 'true' or 'false'
         if (currentlyEnabled === 'true') {
             setCheckboxAndLabelToEnabled();
@@ -39,7 +39,7 @@ function setCurrentCheckboxStatusFromStorage() {
 };
 
 function setupEventListenersForCheckboxButton() {
-    const { checkBox, checkBoxLabel } = getCheckboxAndLabel();
+    const { checkBox, checkBoxLabel } = getCheckboxAndLabelElements();
     checkBox.addEventListener('click', function () {
         if (checkBox.checked) {
             setCheckboxAndLabelToEnabled();
@@ -49,7 +49,7 @@ function setupEventListenersForCheckboxButton() {
     });
 };
 
-function init() {
+function initPopup() {
     // Load the checkbox status from local storage, if unavailable default to disabled
     setCurrentCheckboxStatusFromStorage();
 
@@ -58,4 +58,4 @@ function init() {
 };
 
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', initPopup);
