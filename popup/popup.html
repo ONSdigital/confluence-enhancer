@@ -4,19 +4,30 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="popup.css">
   <link rel="stylesheet" href="checkboxAnimation.css">
-  <title>Chrome Addon v3: popup</title>
+  <script src="popup.mjs" type="module"></script>
+  <title>Confluence Enhancer Extension Popup</title>
 </head>
 <body>
   <div class="container">
     <h1 class="title">Values to Replace</h1>
-    <div class="values">
-      <div class="value">
-        <input type="text" id="value1" value="$$epoch_number">
-      </div>
-      <div class="value">
-        <input type="text" id="value2" value="116-thisWasReplaced">
-      </div>
 
+    <div class="all-value-pairs-container">
+        <!-- Example value pair container 
+
+        <div class="values-pair-container">
+            <div class="input-container">
+                <input type="text" id="key1" class="key-input" placeholder="$$value_to_find">
+            </div>
+            <div class="input-container">
+                <input type="text" id="value1" class="value-input" placeholder="replaceWithThis">
+            </div>
+        </div>-->
+
+    </div>
+
+    <div class="btn-container">
+      <button id="btn-add-new-input">Add New Value</button>
+      <button id="btn-remove-new-input">Remove Last Value</button>
     </div>
 
     <button class="btn-ok">OK</button>
