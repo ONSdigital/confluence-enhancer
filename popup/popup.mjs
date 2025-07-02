@@ -10,7 +10,7 @@ const defaultStarterSettings = {
   pairs: [
     {
       key: '$$epoch_number',
-      value: '118-ReplacedByStorageSettings',  
+      value: 'REPLACED_EPOCH_NUMBER_HERE',  
     },
   ]
 };

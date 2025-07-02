@@ -43,7 +43,7 @@ export function saveSettingsRemovingTheLastPairOfValues() {
     settings.pairs.pop();
   }
 
-  chrome.storage.sync.set({ settings });
+  chrome.storage.local.set({ settings });
 }
 
 export function saveSettingsWithAdditionalBlankPair() {
@@ -52,12 +52,12 @@ export function saveSettingsWithAdditionalBlankPair() {
   // Add an additional blank pair if the toggle is enabled
   settings.pairs.push({ key: '', value: '' });
 
-  chrome.storage.sync.set({ settings });
+  chrome.storage.local.set({ settings });
 }
 
 export function saveSettings() {
   const settings = buildBaseSettings();
 
-  chrome.storage.sync.set({ settings });
+  chrome.storage.local.set({ settings });
 }
 

@@ -32,7 +32,7 @@ function createValueInput(pair, i) {
 
 export function setupNumberOfInputsBasedOnStorage(defaultStarterSettings) {
   // Loading the current settings from storage
-  chrome.storage.sync.get({ settings: defaultStarterSettings }, ({ settings }) => {
+  chrome.storage.local.get({ settings: defaultStarterSettings }, ({ settings }) => {
 
     // Select the container where all value pairs will be added
     const allValuePairsContainer = document.querySelector('.all-value-pairs-container');
