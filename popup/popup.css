@@ -30,14 +30,16 @@ body {
 }
 
 /* Two-column inputs */
-.values {
+.values-pair-container{
   display: flex;
   gap: 0.5rem;
 }
-.value {
+
+.input-container{
   flex: 1;
 }
-.value input {
+
+.input-container input {
   width: 100%;
   padding: 0.5rem;
   background-color: #333;

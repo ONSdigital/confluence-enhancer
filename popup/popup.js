@@ -1,3 +1,10 @@
+const defaultStarterSettings = {
+  enabled: false,
+
+  key1Input: '$$epoch_number',
+  value1Input: '118-ReplacedByStorageSettings',
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('#toggle-switch');
   const btnOk = document.querySelector('.btn-ok');
@@ -6,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const value1Input= document.querySelector('#value1');
 
   // 1) Load existing settings (or defaults)
-  chrome.storage.sync.get({ settings: {} }, ({ settings }) => {
+  chrome.storage.sync.get({ settings: defaultStarterSettings }, ({ settings }) => {
     toggle.checked   = settings.enabled || false;
 
     key1Input.value = settings.key1Input || '';
@@ -32,5 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
   btnOk.addEventListener('click', () => {
     saveSettings();
     window.close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();    
+    saveSettings();
+    window.close();
+    }
   });
 });
