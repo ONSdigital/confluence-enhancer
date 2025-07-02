@@ -12,18 +12,6 @@ const defaultStarterSettings = {
       key: '$$epoch_number',
       value: '118-ReplacedByStorageSettings',  
     },
-    {
-      key: '$$epoch_date',
-      value: '2023-10-01-ReplacedByStorageSettings',
-    },
-    {
-      key: '$$epoch_time',
-      value: '12:00-ReplacedByStorageSettings',
-    },
-    {
-      key: '$$epoch_datetime',
-      value: '2023-10-01T12:00:00-ReplacedByStorageSettings',
-    },
   ]
 };
 
