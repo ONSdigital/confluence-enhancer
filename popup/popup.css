@@ -56,6 +56,43 @@ body {
   font-size: 0.95rem;
 }
 
+/* add/remove button */
+.btn-container {
+  display: flex;
+  gap: 0.5rem;       /* space between */
+  /* remove justify-content */
+}
+
+.btn-container > button {
+  flex: 1;           /* each button takes equal share */
+}
+
+/* your existing button styling */
+#btn-add-new-input {
+  background-color: #28a745;
+}
+#btn-add-new-input:hover {
+  background-color: #218838;
+}
+#btn-remove-new-input {
+  background-color: #dc3545;
+}
+#btn-remove-new-input:hover {
+  background-color: #c82333;
+}
+
+#btn-add-new-input,
+#btn-remove-new-input {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
 /* OK button */
 .btn-ok {
   margin-top: auto;

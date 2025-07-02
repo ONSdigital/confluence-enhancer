@@ -1,6 +1,6 @@
 import { getAllElements } from './popupHelpers/elementSelection.mjs';
-import { loadValues } from './popupHelpers/loadValues.mjs';
-import { saveSettings } from './popupHelpers/saveValues.mjs';
+import { loadToggleStatus } from './popupHelpers/loadValues.mjs';
+import { saveSettings, saveSettingsWithAdditionalBlankPair, saveSettingsRemovingTheLastPairOfValues } from './popupHelpers/saveValues.mjs';
 import { setupNumberOfInputsBasedOnStorage } from './popupHelpers/elementCreation.mjs';
 
 const defaultStarterSettings = {
@@ -56,6 +56,9 @@ function setupEventListeners() {
   const keyInputs = allElements.keyInputs;
   const valueInputs = allElements.valueInputs;
 
+  const btnAddNewInput = allElements.btnAddNewInput;
+  const btnRemoveNewInput = allElements.btnRemoveNewInput;
+
   // Wire up change handlers
   keyInputs.forEach(el => el.addEventListener('input', saveSettings));
   valueInputs.forEach(el => el.addEventListener('input', saveSettings));
@@ -64,6 +67,19 @@ function setupEventListeners() {
   btnOk.addEventListener('click', () => {
     saveAndClose();
   });
+
+  btnAddNewInput.addEventListener('click', () => {
+    // Add a new input pair to the storage
+    saveSettingsWithAdditionalBlankPair();
+    setupNumberOfInputsBasedOnStorage(defaultStarterSettings);
+  });
+
+  btnRemoveNewInput.addEventListener('click', () => {
+    // Remove the last input pair from the storage
+    saveSettingsRemovingTheLastPairOfValues();
+    setupNumberOfInputsBasedOnStorage(defaultStarterSettings);
+  });
+
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
