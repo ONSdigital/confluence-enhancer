@@ -55,6 +55,7 @@ function setupEventListeners() {
 
   const keyInputs = allElements.keyInputs;
   const valueInputs = allElements.valueInputs;
+  const allValuePairsContainer = allElements.allValuePairsContainer;
 
   const btnAddNewInput = allElements.btnAddNewInput;
   const btnRemoveNewInput = allElements.btnRemoveNewInput;
@@ -72,20 +73,28 @@ function setupEventListeners() {
     // Add a new input pair to the storage
     saveSettingsWithAdditionalBlankPair();
     setupNumberOfInputsBasedOnStorage(defaultStarterSettings);
+    setupEventListeners();
   });
 
   btnRemoveNewInput.addEventListener('click', () => {
     // Remove the last input pair from the storage
     saveSettingsRemovingTheLastPairOfValues();
     setupNumberOfInputsBasedOnStorage(defaultStarterSettings);
+    setupEventListeners();
   });
 
+  // Apply to the stuff inside the allValuePairsContainer (just the input boxes)
+  allValuePairsContainer.addEventListener('keyup', (e) => {
+    if (e.target.matches('input[type="text"]')) {
+      saveSettings(); // save after every keystroke
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();    
-      saveAndClose();
+      // If enter is pressed close as well
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        saveAndClose();
+      }
     }
+
   });
 }
 

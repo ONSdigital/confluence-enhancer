@@ -12,6 +12,9 @@ export function getAllElements() {
     // Input containers 
     keyInputs: document.querySelectorAll('.key-input'),
     valueInputs: document.querySelectorAll('.value-input'),
+
+    // Container for all inputs
+    allValuePairsContainer: document.querySelector('.all-value-pairs-container')
   }
   return allElements;
 }
