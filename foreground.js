@@ -26,8 +26,9 @@ console.log('This prints to the console of the page (injected only if the page u
 
   chrome.storage.local.get({ settings: defaultStarterSettings }, async ({ settings }) => {
     console.log('Current settings (either default or overiden by popup):', settings);
-    runReplacementScript(settings);
+    // Settings: {enabled: false, pairs: Array(1)} 
+    const pairsToReplace = settings.pairs || [];
+    runReplacementScript(pairsToReplace);
   });
-
 
 })();

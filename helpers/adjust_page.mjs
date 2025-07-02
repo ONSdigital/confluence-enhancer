@@ -1,10 +1,5 @@
 
 
-
-const variables = {
-  epoch_number: '116-ThisValueWasSucesffullyReplaced',
-};
-
 // Merge adjacent text nodes so that split placeholders like "$$" and "epoch_number"
 // end up in the same node for matching
 function normalizeTextNodes(root) {
@@ -55,7 +50,21 @@ function replacePlaceholders(root = document.body) {
   }
 }
 
-export function runReplacementScript() {
+let variables = {};
+
+export function runReplacementScript(pairsToReplace) {
+  // pairsToReplace: [ {'key': 'epoch_number', 'value': '116-ThisValueWasSucesffullyReplaced'} ]
+  // The 'key' is what to match on the page
+  // The 'value' is what to replace it with
+
+  // Populate the variables object with user preferences
+  variables = pairsToReplace.reduce((acc, {key, value}) => {
+    // strip off the leading '$$' to get the varName
+    const varName = key.startsWith('$$') ? key.slice(2) : key;
+    acc[varName] = value;
+    return acc;
+  }, {});
+
   // 1) Run once on initial load (Confluence or standard DOMContentLoaded)
   if (window.AJS && AJS.toInit) {
     AJS.toInit(() => replacePlaceholders());
