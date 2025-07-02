@@ -2,19 +2,7 @@ import { getAllElements } from './popupHelpers/elementSelection.mjs';
 import { loadToggleStatus } from './popupHelpers/loadValues.mjs';
 import { saveSettings, saveSettingsWithAdditionalBlankPair, saveSettingsRemovingTheLastPairOfValues } from './popupHelpers/saveValues.mjs';
 import { setupNumberOfInputsBasedOnStorage } from './popupHelpers/elementCreation.mjs';
-
-const defaultStarterSettings = {
-  enabled: false,
-
-  // Default values loaded on first run
-  pairs: [
-    {
-      key: '$$epoch_number',
-      value: 'REPLACED_EPOCH_NUMBER_HERE',  
-    },
-  ]
-};
-
+import { defaultStarterSettings } from './popupHelpers/defaultSettings.mjs';
 
 // MAIN script 
 document.addEventListener('DOMContentLoaded', () => {

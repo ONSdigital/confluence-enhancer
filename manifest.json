@@ -33,7 +33,9 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "helpers/adjust_page.mjs"
+        "helpers/adjust_page.mjs",
+        "helpers/url_matcher.mjs",
+        "popup/popupHelpers/defaultSettings.mjs"
       ],
       "matches": [
         "<all_urls>"
