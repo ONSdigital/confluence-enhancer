@@ -29,6 +29,11 @@ function doesUrlMatch() {
     return;
   }
 
+  chrome.storage.sync.get({ settings: {} }, ({ settings }) => {
+    console.log('Current settings:', settings);
+
+  });
+
   console.log('Now importing replacement script...');
   const moduleUrl = chrome.runtime.getURL('helpers/adjust_page.mjs');
   const { runReplacementScript } = await import(moduleUrl);
