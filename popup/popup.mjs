@@ -39,7 +39,10 @@ function setupEventListeners() {
   // Wire up change handlers
   keyInputs.forEach(el => el.addEventListener('input', saveSettings));
   valueInputs.forEach(el => el.addEventListener('input', saveSettings));
-  toggle.addEventListener('change', saveSettings);
+  toggle.addEventListener('change', () => {
+    saveSettings();
+    loadToggleStatus(defaultStarterSettings); // Reload to update the label
+  });
 
   btnOk.addEventListener('click', () => {
     saveAndClose();
