@@ -4,8 +4,8 @@ export const defaultStarterSettings = {
   // Default values loaded on first run
   pairs: [
     {
-      key: '$$epoch_number',
-      value: 'DefaultStarterSettings',  
+      key: 'ReplaceMeWithTheEpochNumber',
+      value: 'ActualValueOfEpochNumber',  
     },
   ]
 };
