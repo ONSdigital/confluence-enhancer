@@ -9,7 +9,7 @@ export function loadToggleStatus(defaultStarterSettings) {
   chrome.storage.local.get({ settings: defaultStarterSettings }, ({ settings }) => {
     const enabledSetting = settings.enabled;
 
-    toggleLabel.textContent = enabledSetting ? 'Enabled' : 'Disabled';
+    toggleLabel.textContent = enabledSetting ? 'Enabled' : ' D️isabled ️';
     toggle.checked  = enabledSetting;
   });
 }
