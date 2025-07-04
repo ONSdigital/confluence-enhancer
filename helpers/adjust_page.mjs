@@ -1,13 +1,11 @@
 
-
-
-const variables = {
-  epoch_number: '116-ThisValueWasSucesffullyReplaced',
-};
-
-// Merge adjacent text nodes so that split placeholders like "$$" and "epoch_number"
-// end up in the same node for matching
+// Merge adjacent text nodes so split placeholders end up in the same node
 function normalizeTextNodes(root) {
+  if (!root || (root.nodeType !== Node.ELEMENT_NODE && root.nodeType !== Node.DOCUMENT_NODE)) {
+    console.warn('normalizeTextNodes skipped on invalid root:', root);
+    return;
+  }
+
   const walker = document.createTreeWalker(
     root,
     NodeFilter.SHOW_TEXT,
@@ -17,7 +15,7 @@ function normalizeTextNodes(root) {
 
   let node;
   while (node = walker.nextNode()) {
-    let next = node.nextSibling;
+    const next = node.nextSibling;
     if (next && next.nodeType === Node.TEXT_NODE) {
       node.nodeValue += next.nodeValue;
       next.parentNode.removeChild(next);
@@ -25,7 +23,7 @@ function normalizeTextNodes(root) {
   }
 }
 
-// Walk all text nodes under `root` and replace $$VAR with variables[VAR]
+// Walk all text nodes under `root` and replace any literal key with its value
 function replacePlaceholders(root = document.body) {
   normalizeTextNodes(root);
 
@@ -38,16 +36,18 @@ function replacePlaceholders(root = document.body) {
 
   let node;
   while (node = walker.nextNode()) {
-    const text = node.nodeValue;
-    if (!/\$\$\w+/.test(text)) continue;
+    let text = node.nodeValue;
+    let newText = text;
 
-    const newText = text.replace(
-      /\$\$(\w+)/g,
-      (_, varName) =>
-        Object.prototype.hasOwnProperty.call(variables, varName)
-          ? variables[varName]
-          : `$$${varName}`
-    );
+    // For each key in our variables map, do a global replace
+    for (const key in variables) {
+      if (!Object.prototype.hasOwnProperty.call(variables, key)) continue;
+      const value = variables[key];
+      // split/join is faster & avoids regex-escaping pitfalls
+      if (newText.includes(key)) {
+        newText = newText.split(key).join(value);
+      }
+    }
 
     if (newText !== text) {
       node.nodeValue = newText;
@@ -55,15 +55,28 @@ function replacePlaceholders(root = document.body) {
   }
 }
 
-export function runReplacementScript() {
-  // 1) Run once on initial load (Confluence or standard DOMContentLoaded)
+// This object will hold literal keys → replacement strings
+let variables = {};
+
+/**
+ * @param {Array<{key: string, value: string}>} pairsToReplace
+ *        e.g. [{ key: 'ReplaceThisWithTheEpochNumber', value: '116' }, ...]
+ */
+export function runReplacementScript(pairsToReplace) {
+  // Build our lookup map directly from the raw keys
+  variables = pairsToReplace.reduce((acc, { key, value }) => {
+    acc[key] = value;
+    return acc;
+  }, {});
+
+  // 1) Run once on initial load
   if (window.AJS && AJS.toInit) {
     AJS.toInit(() => replacePlaceholders());
   } else {
     document.addEventListener('DOMContentLoaded', () => replacePlaceholders());
   }
 
-  // 2) Observe for new nodes, text changes, or style toggles
+  // 2) Observe for any new content or text changes
   const observer = new MutationObserver(mutations => {
     for (const m of mutations) {
       if (m.type === 'childList') {
@@ -74,11 +87,9 @@ export function runReplacementScript() {
             replacePlaceholders(node);
           }
         }
-      }
-      else if (m.type === 'characterData') {
+      } else if (m.type === 'characterData') {
         replacePlaceholders(m.target.parentNode);
-      }
-      else if (m.type === 'attributes' && m.attributeName === 'style') {
+      } else if (m.type === 'attributes' && m.attributeName === 'style') {
         replacePlaceholders(m.target);
       }
     }
@@ -92,3 +103,4 @@ export function runReplacementScript() {
     attributeFilter: ['style']
   });
 }
+

@@ -2,11 +2,15 @@ import { getAllElements } from './elementSelection.mjs';
 
 export function loadToggleStatus(defaultStarterSettings) {
   const allElements = getAllElements(); 
+
   const toggle = allElements.toggle;
+  const toggleLabel = allElements.toggleLabel;
 
   chrome.storage.local.get({ settings: defaultStarterSettings }, ({ settings }) => {
-    toggle.checked  = settings.enabled;
+    const enabledSetting = settings.enabled;
 
+    toggleLabel.textContent = enabledSetting ? 'Enabled' : ' D️isabled ️';
+    toggle.checked  = enabledSetting;
   });
 }
 

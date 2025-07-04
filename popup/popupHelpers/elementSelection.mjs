@@ -3,6 +3,7 @@ export function getAllElements() {
   const allElements = {
     // Toggle Enabled Switch
     toggle: document.querySelector('#toggle-switch'),
+    toggleLabel: document.querySelector('#statusToggleLabel'),
 
     // Buttons
     btnOk: document.querySelector('.btn-ok'),

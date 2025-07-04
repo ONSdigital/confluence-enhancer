@@ -1,12 +1,21 @@
 export const defaultStarterSettings = {
-  enabled: false,
+  enabled: true,
 
   // Default values loaded on first run
   pairs: [
     {
-      key: '$$epoch_number',
-      value: 'DefaultStarterSettings',  
+      key: 'ReplaceMeWithTheEpochNumber',
+      value: 'ActualValueOfEpochNumber',  
     },
+    {
+      key: 'ValueOfLastEpoch',
+      value: 'CurrentlyDefalutInProd',  
+    },
+     {
+      key: 'ValueOfUnixTimeStamp',
+      value: 'PleaseAquireANewValue',  
+    },
+ 
   ]
 };
 

@@ -1,15 +1,17 @@
 # confluence-enhancer
-Enhance the documenting capabilities of Confluence by allowing JS to run in the page that the author of the page adds. 
+Enhance Confluence pages by offering a "find and replace" service live in the DOM.
 
 # How does it work?
-A confluence page is identified as having potential to be far more intuative, interactive or better presented with the help of external scripts being run on the page.
+Instructions in Confluence might have multiple instances of "copy and paste" commands to acheive things.
+In some cases these require a small tweak every time they're run - for example to cope with a filename change.
+
+The aim of this project is to live replace $$variable_name with a value, allowing easily adjustable live-documentation.
 
 The author links to this Repo where anyone can install the plugin for Chromium Browsers.
 
-Once the plugin is installed, it will look for "scripts" in a collapsable with a specific label `scripts - please ignore`. This will allow users who haven't got the plugin to use the page as normal.
-The plugin then identifies any scripts in a "collapsable" component in the page and runs the function "init".
-
 The plugin can be toggled on or off by clicking on the plugin icon and toggling the switch
+
+Values to replace can be found in the dropdown once the plugin is clicked on.
 
 # Installation
 In order to install this plugin you must:
@@ -22,9 +24,4 @@ In order to install this plugin you must:
 4. Oh, you should have cloned/downloaded this first. If you haven't done that, do that.
 5. Unzip this project if you downloaded it
 6. Select the directory of this project
-
-# Setup
-Once you have a confluence page, go to "Edit", then "Insert more content", "other macros" then select the "collapsable" component.
-Make the title `scripts - please ignore` and then the first line inside that component a link to this repo with the message "To view all content on this page please follow the instructions here".
-Now you're free to add standard ECMAScript with a function "init" which will be called immediately. 
 

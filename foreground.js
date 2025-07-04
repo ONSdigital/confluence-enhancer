@@ -25,9 +25,16 @@ console.log('This prints to the console of the page (injected only if the page u
   const { defaultStarterSettings } = await import(urlForSettingsModule);
 
   chrome.storage.local.get({ settings: defaultStarterSettings }, async ({ settings }) => {
+    // Settings: {enabled: false, pairs: Array(1)} 
     console.log('Current settings (either default or overiden by popup):', settings);
-    runReplacementScript(settings);
-  });
 
+    const pairsToReplace = settings.pairs || [];
+    if (settings.enabled === false || pairsToReplace.length === 0) {
+      console.log('Replacement is disabled or no pairs to replace. Exiting script.');
+      return;
+    } else {
+      runReplacementScript(pairsToReplace);
+    }
+  });
 
 })();
