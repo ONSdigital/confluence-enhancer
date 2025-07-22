@@ -5,17 +5,32 @@ export const defaultStarterSettings = {
   pairs: [
     {
       key: 'ReplaceMeWithTheEpochNumber',
-      value: 'ActualValueOfEpochNumber',  
+      value: 'The Number Of the Epoch you Wish To Load (normally one more than the current one)',  
     },
     {
       key: 'ValueOfLastEpoch',
-      value: 'CurrentlyDefalutInProd',  
+      value: 'The Default Version In Prod Before Starting This New Epoch',  
     },
-     {
+    {
+      key: 'ValueOfDatestamp',
+      value: 'Get This From Step 3',  
+    },
+    {
       key: 'ValueOfUnixTimeStamp',
-      value: 'PleaseAquireANewValue',  
+      value: 'This is the new stamp you aquire from the website',  
     },
- 
+    {
+      key: 'ValueOfHybridUnixStamp',
+      value: 'Obtained once the index is loaded',  
+    },
+    {
+      key: 'ValueOfHybridHistoricalUnixStamp',
+      value: 'Obtained once the index is loaded',  
+    },
+    {
+      key: 'ValueOfSkinnyUnixStamp',
+      value: 'Obtained once the index is loaded',  
+    },
   ]
 };
 
