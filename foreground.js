@@ -7,34 +7,35 @@
 console.log('This prints to the console of the page (injected only if the page url matched)');
 
 
-(async () => {
-  // Main application Logic here
-  const urlModuleMatcherUrl = chrome.runtime.getURL('helpers/url_matcher.mjs');
-  const { doesUrlMatch } = await import(urlModuleMatcherUrl);
- 
-  const urlMatches = doesUrlMatch();
-  if (!urlMatches) {
-    console.log('URL does not match expected pattern. Exiting script.');
-    return;
-  }
+window.addEventListener('load', () => {
+  (async () => {
+    // Main application Logic here
+    const urlModuleMatcherUrl = chrome.runtime.getURL('helpers/url_matcher.mjs');
+    const { doesUrlMatch } = await import(urlModuleMatcherUrl);
 
-  const moduleUrl = chrome.runtime.getURL('helpers/adjust_page.mjs');
-  const { runReplacementScript } = await import(moduleUrl);
-
-  const urlForSettingsModule = chrome.runtime.getURL('popup/popupHelpers/defaultSettings.mjs');
-  const { defaultStarterSettings } = await import(urlForSettingsModule);
-
-  chrome.storage.local.get({ settings: defaultStarterSettings }, async ({ settings }) => {
-    // Settings: {enabled: false, pairs: Array(1)} 
-    console.log('Current settings (either default or overiden by popup):', settings);
-
-    const pairsToReplace = settings.pairs || [];
-    if (settings.enabled === false || pairsToReplace.length === 0) {
-      console.log('Replacement is disabled or no pairs to replace. Exiting script.');
+    const urlMatches = doesUrlMatch();
+    if (!urlMatches) {
+      console.log('URL does not match expected pattern. Exiting script.');
       return;
-    } else {
-      runReplacementScript(pairsToReplace);
     }
-  });
 
-})();
+    const moduleUrl = chrome.runtime.getURL('helpers/adjust_page.mjs');
+    const { runReplacementScript } = await import(moduleUrl);
+
+    const urlForSettingsModule = chrome.runtime.getURL('popup/popupHelpers/defaultSettings.mjs');
+    const { defaultStarterSettings } = await import(urlForSettingsModule);
+
+    chrome.storage.local.get({ settings: defaultStarterSettings }, async ({ settings }) => {
+      // Settings: {enabled: false, pairs: Array(1)} 
+      console.log('Current settings (either default or overridden by popup):', settings);
+
+      const pairsToReplace = settings.pairs || [];
+      if (settings.enabled === false || pairsToReplace.length === 0) {
+        console.log('Replacement is disabled or no pairs to replace. Exiting script.');
+        return;
+      } else {
+        runReplacementScript(pairsToReplace);
+      }
+    });
+  })();
+});
