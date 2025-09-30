@@ -156,7 +156,7 @@ export function runReplacementScript(pairsToReplace, mainContent = '#main-conten
     roots = [document.body];
   }
 
-  console.log('Main content roots:', roots);
+  //console.log('Main content roots:', roots);
 
   // A helper to run replacements across all roots
   const runOnAllRoots = () => {

@@ -4,7 +4,7 @@
 // Several foreground scripts can be declared
 // and injected into the same or different pages.
 
-console.log('This prints to the console of the page (injected only if the page url matched)');
+//console.log('This prints to the console of the page (injected only if the page url matched)');
 
 
 window.addEventListener('load', () => {
@@ -15,7 +15,7 @@ window.addEventListener('load', () => {
 
     const urlMatches = doesUrlMatch();
     if (!urlMatches) {
-      console.log('URL does not match expected pattern. Exiting script.');
+      //console.log('URL does not match expected pattern. Exiting script.');
       return;
     }
 
@@ -27,11 +27,11 @@ window.addEventListener('load', () => {
 
     chrome.storage.local.get({ settings: defaultStarterSettings }, async ({ settings }) => {
       // Settings: {enabled: false, pairs: Array(1)} 
-      console.log('Current settings (either default or overridden by popup):', settings);
+      //console.log('Current settings (either default or overridden by popup):', settings);
 
       const pairsToReplace = settings.pairs || [];
       if (settings.enabled === false || pairsToReplace.length === 0) {
-        console.log('Replacement is disabled or no pairs to replace. Exiting script.');
+        //console.log('Replacement is disabled or no pairs to replace. Exiting script.');
         return;
       } else {
         runReplacementScript(pairsToReplace);
